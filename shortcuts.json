@@ -1,0 +1,102 @@
+{
+  "actions": [
+    {
+      "id": "left",
+      "name": "Align left",
+      "type": "ExecuteFunction"
+    },
+    {
+      "id": "center",
+      "name": "Align horizontal centers",
+      "type": "ExecuteFunction"
+    },
+    {
+      "id": "right",
+      "name": "Align right",
+      "type": "ExecuteFunction"
+    },
+    {
+      "id": "top",
+      "name": "Align top",
+      "type": "ExecuteFunction"
+    },
+    {
+      "id": "middle",
+      "name": "Align vertical centers",
+      "type": "ExecuteFunction"
+    },
+    {
+      "id": "bottom",
+      "name": "Align bottom",
+      "type": "ExecuteFunction"
+    },
+    {
+      "id": "distributeX",
+      "name": "Distribute horizontal gaps",
+      "type": "ExecuteFunction"
+    },
+    {
+      "id": "distributeY",
+      "name": "Distribute vertical gaps",
+      "type": "ExecuteFunction"
+    }
+  ],
+  "shortcuts": [
+    {
+      "action": "left",
+      "key": {
+        "default": "Alt+A",
+        "mac": "Alt+A"
+      }
+    },
+    {
+      "action": "center",
+      "key": {
+        "default": "Alt+H",
+        "mac": "Alt+H"
+      }
+    },
+    {
+      "action": "right",
+      "key": {
+        "default": "Alt+D",
+        "mac": "Alt+D"
+      }
+    },
+    {
+      "action": "top",
+      "key": {
+        "default": "Alt+W",
+        "mac": "Alt+W"
+      }
+    },
+    {
+      "action": "middle",
+      "key": {
+        "default": "Alt+V",
+        "mac": "Alt+V"
+      }
+    },
+    {
+      "action": "bottom",
+      "key": {
+        "default": "Alt+S",
+        "mac": "Alt+S"
+      }
+    },
+    {
+      "action": "distributeX",
+      "key": {
+        "default": "Alt+Shift+H",
+        "mac": "Alt+Shift+H"
+      }
+    },
+    {
+      "action": "distributeY",
+      "key": {
+        "default": "Alt+Shift+V",
+        "mac": "Alt+Shift+V"
+      }
+    }
+  ]
+}

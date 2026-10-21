@@ -1,0 +1,12 @@
+*
+!Dockerfile
+!package.json
+!server.mjs
+!index.html
+!app.js
+!geometry.js
+!style.css
+!shortcuts.json
+!icon.png
+!install.html
+!manifest.xml
