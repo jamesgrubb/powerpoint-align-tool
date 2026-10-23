@@ -1,6 +1,6 @@
 # Marketplace release candidate 1.0.2
 
-Publisher: James Grubb Ltd. Product: Slide Tools. First release: free, no app login or in-app purchases. Public contact uses the existing support mailbox JamesGrubb@MakingThingsBetterLtd.onmicrosoft.com; owner confirmation remains open. Partner Center publisher verification must match the legal publisher before submission.
+Publisher: James Grubb Ltd. Product: Slide Tools. First release: free, no app login or in-app purchases. Public support and privacy contact: support@jamesgrubb.co.uk (dedicated alias created in Google Workspace). Partner Center publisher verification must match the legal publisher before submission.
 
 ## Prepared
 
