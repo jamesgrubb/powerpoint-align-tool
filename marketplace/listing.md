@@ -20,6 +20,8 @@ Presentation geometry is processed inside PowerPoint. Slide Tools does not uploa
 
 Compatibility statement must be completed after platform testing. Single-object slide alignment requires PowerPointApi 1.10. This version supports unrotated objects and rejects spacing that would require overlapping gaps. Office may ask you to resolve a shortcut conflict.
 
+Public support and privacy email: james@jamesgrubb.co.uk.
+
 Submission fields to finalise:
 - Publisher: James Grubb Ltd (must match Partner Center verification).
 - Public support: https://powerpoint-align-tool.up.railway.app/support.html (verify after deployment).
