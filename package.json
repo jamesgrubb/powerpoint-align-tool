@@ -1,1 +1,11 @@
-{"name":"slide-tools","private":true,"version":"0.1.0","type":"module","scripts":{"start":"node server.mjs","test":"node --test geometry.test.mjs","check":"node --check app.js && node --check server.mjs"}}
+{
+  "name": "slide-tools",
+  "private": true,
+  "version": "1.0.2",
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test *.test.mjs",
+    "check": "node --check app.js && node --check geometry.js && node --check server.mjs"
+  }
+}

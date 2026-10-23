@@ -1,61 +1,40 @@
-# Slide Tools — Mac PowerPoint prototype
+# Slide Tools for PowerPoint
 
-Independent Office web add-in: Figma alignment shortcuts, equal-gap distribution, captured-reference sizing, position swapping, and configurable shortcuts. No backend receives presentation data.
+Office web add-in for keyboard-driven object alignment and equal-gap spacing. Presentation edits run in PowerPoint; the app server serves static files and does not receive presentation content. No app account, payment, or macro is required.
 
-## Run and load
+## Features
 
-Requires Node.js and PowerPoint for Mac 16.105.2+, PowerPointApi 1.5 and SharedRuntime 1.1. Slide alignment also requires PowerPointApi 1.10 (checked at runtime).
+- Six alignments: left, right, top, bottom, horizontal centre, vertical centre.
+- One selected object aligns to the slide; multiple objects align to their combined bounds.
+- Horizontal and vertical equal gaps for three or more objects, preserving outer positions.
+- Keyboard shortcuts and graphical buttons. Rotated objects are rejected; overlapping distribution is rejected.
 
-1. Install trusted HTTPS certificates using `npx office-addin-dev-certs install`. macOS may request Keychain permission. Server reads `~/.office-addin-dev-certs/localhost.key` and `localhost.crt`; override directory with `SLIDE_TOOLS_CERT_DIR`.
-2. Run `npm start` in this directory. Keep the server running at https://localhost:3443.
-3. Copy `manifest.xml` to `~/Library/Containers/com.microsoft.Powerpoint/Data/Documents/wef/slide-tools.xml`, creating the directory if absent.
-4. Load Slide Tools via PowerPoint's Add-ins menu. If absent, save work and restart PowerPoint.
-5. Open Slide Tools from the Home ribbon once per presentation to activate keyboard actions.
+| Action | Mac | Windows |
+| --- | --- | --- |
+| Left / right | Option+A / D | Alt+A / D |
+| Top / bottom | Option+W / S | Alt+W / S |
+| Horizontal / vertical centres | Option+H / V | Alt+H / V |
+| Horizontal / vertical gaps | Option+Shift+H / V | Alt+Shift+H / V |
 
-## Default keys
+## Development
 
-| Action | Key |
-| --- | --- |
-| Left / right | Option+A / D |
-| Top / bottom | Option+W / S |
-| Horizontal / vertical centers | Option+H / V |
-| Horizontal / vertical equal gaps | Option+Shift+H / V |
-| Match width / height / both | Option+Shift+W / S / B |
-| Swap top-left positions | Option+Shift+X |
+Requires Node.js and Microsoft 365 PowerPoint with PowerPointApi 1.5 and SharedRuntime 1.1. Single-object slide alignment requires PowerPointApi 1.10, checked at runtime. Shortcut support must be verified on each advertised platform.
 
-Capture one reference object's size before selecting objects to resize. Matching dimensions can distort pictures. Distribution preserves outer objects and rejects negative gaps. Rotated objects are rejected in this preview. Shortcuts are stored using Office settings; conflicts may prompt for a choice. Test shape shortcuts outside text editing.
+1. Install trusted local HTTPS certificates with `npx office-addin-dev-certs install`.
+2. Run `npm start`. The local server uses https://localhost:3443 and certificates in `~/.office-addin-dev-certs`, overridable through `SLIDE_TOOLS_CERT_DIR`.
+3. Sideload **manifest.local.xml** for local development. **manifest.xml** points to production.
+4. For hosted beta installation, use https://powerpoint-align-tool.up.railway.app/install.html.
 
-## Duplicate in place — native companion
+Production: https://powerpoint-align-tool.up.railway.app
+Repository: https://github.com/jamesgrubb/powerpoint-align-tool (private)
+Railway service: heroic-reverence. Production is connected to `jamesgrubb/powerpoint-align-tool`, branch `main`. Pushing main triggers Railway deployment. Check the deployment reaches Success before reporting a release as live.
 
-Office.js has no general shape duplication method. `DuplicateInPlace.bas` uses PowerPoint's native VBA Duplicate method to preserve editable objects, restore the original range's left/top coordinates, and select the copies.
+## Checks and release preparation
 
-Import the module via PowerPoint's Visual Basic Editor > File > Import File into a dedicated macro-enabled presentation (.pptm). Run `DuplicateInPlace` using Tools > Macro > Macros. It can later be packaged as a .ppam add-in. The web add-in does not call this module. Command+D remapping to the macro needs a separate native Mac integration and is not implemented or verified. Built-in Duplicate is unchanged.
+Run `npm test` and `npm run check`. See [marketplace/README.md](marketplace/README.md) for submission preparation, remaining decisions, listing copy, privacy and licence pages, and the manual test matrix.
 
-## Validation
+The user confirmed Mac shortcuts work with the panel closed and that a shortcut opens a previously unopened panel. Whether the first press also performs the requested operation remains to be verified. Windows and web acceptance testing is pending. Automated geometry tests do not prove host shortcut behaviour or Undo.
 
-`npm test`: geometry tests for all six alignments, unequal-size distribution, swap round trips, resizing, slide centering, and invalid selections. `npm run check`: syntax checks.
+## Separate native experiments
 
-Live host behavior, shortcut conflicts, Undo, and macro execution still require PowerPoint validation. On a disposable slide, test three unequal shapes, every operation, and Undo. Test keys with the sidebar closed and while editing text. Verify the native macro duplicates single and multiple selections without moving them and leaves copies selected.
-
-## Remove
-
-Remove only `slide-tools.xml` from PowerPoint's wef folder, save your work and restart PowerPoint. Stop the Node server. Remove the imported macro module separately if installed.
-
-## References
-
-- https://learn.microsoft.com/en-us/office/dev/add-ins/design/keyboard-shortcuts
-- https://learn.microsoft.com/en-us/office/dev/add-ins/develop/configure-your-add-in-to-use-a-shared-runtime
-- https://learn.microsoft.com/en-us/office/dev/add-ins/testing/sideload-an-office-add-in-on-mac
-- https://learn.microsoft.com/en-us/office/vba/api/powerpoint.shaperange.duplicate
-
-## Current verification status
-
-Microsoft manifest validator passes; six geometry tests and JavaScript syntax checks pass. After restarting PowerPoint, the Slide Tools sidebar loads successfully and displays “Align left · 3 objects.” This status was observed in the existing presentation; no edits were made to that presentation during verification. The earlier disabled-add-in blocker is resolved. Full shortcut, Undo, and object-operation acceptance testing remains outstanding. The duplicate-in-place macro has not been imported or executed; Command+D replacement remains unfinished.
-
-## Railway hosting
-
-Hosted at https://heroic-reverence-production-529f.up.railway.app. Deployment 9fdd79c8-fe49-4ab3-9932-0e8d271a3241 reached SUCCESS. manifest.xml uses the hosted URL; manifest.local.xml preserves the local development setup. Railway serves the static add-in code; presentation edits still run inside PowerPoint. No local server is needed with the hosted manifest. Restart PowerPoint to reload a replaced manifest.
-
-## Small-group beta
-
-Share https://heroic-reverence-production-529f.up.railway.app/install.html for Mac setup, manifest download, test checklist, limitations, and removal instructions. Duplicate-in-place is explicitly excluded from this beta. No invitations have been sent.
+VBA files and macro test presentations are development experiments, not part of the hosted add-in or marketplace offer. They are excluded from the Docker deployment. The add-in does not provide duplication, sizing, swapping, or layout-grid tools.

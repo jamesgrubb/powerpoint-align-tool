@@ -6,7 +6,7 @@ import {fileURLToPath} from 'node:url';
 import {homedir} from 'node:os';
 const root=dirname(fileURLToPath(import.meta.url));
 const certs=process.env.SLIDE_TOOLS_CERT_DIR||resolve(homedir(),'.office-addin-dev-certs');
-const allowed=new Set(['index.html','app.js','geometry.js','style.css','shortcuts.json','icon.png','install.html','manifest.xml']);
+const allowed=new Set(['index.html','app.js','geometry.js','style.css','shortcuts.json','icon.png','install.html','manifest.xml','support.html','privacy.html','terms.html',...([16,20,24,32,40,48,64,80,96,300].map(size=>`icons/icon-${size}.png`))]);
 const handler=(req,res)=>{
  const name=new URL(req.url,'https://localhost:3443').pathname.slice(1)||'index.html';
  if(!allowed.has(name)){res.writeHead(404);res.end('Not found');return;}

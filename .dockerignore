@@ -10,3 +10,9 @@
 !icon.png
 !install.html
 !manifest.xml
+
+!support.html
+!privacy.html
+!terms.html
+!icons/
+!icons/*.png
